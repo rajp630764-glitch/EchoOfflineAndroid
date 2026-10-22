@@ -6,6 +6,8 @@
 - पहली बार खुलने पर Android का Music/Audio permission prompt दिखाता है।
 - अनुमति मिलने पर MediaStore से फ़ोन में indexed music tracks स्कैन करता है।
 - गानों की सूची दिखाता है और Play बटन से गाना चलाता है।
+- Foreground media playback service के ज़रिए ऐप से बाहर जाने या स्क्रीन लॉक होने पर भी गाना चलाने का समर्थन करता है।
+- Notification में गाने का नाम और Stop action दिखाता है।
 - ऐप खुला रहने पर MediaStore में बदलाव दिखने पर library refresh करता है।
 - एक ही MediaStore ID वाली entries को दोबारा नहीं दिखाता।
 
@@ -13,7 +15,7 @@
 - यह तैयार APK नहीं है; यह Android Studio source project है।
 - ऐप बंद होने पर हर नए डाउनलोड को तुरंत पकड़ने की गारंटी नहीं है। Reliable background detection के लिए अलग native background design और testing चाहिए।
 - Android MediaStore में केवल वही audio दिखेगा जिसे सिस्टम ने index किया है।
-- यह starter app अभी playlists, liked songs, notification controls और background playback service शामिल नहीं करता।
+- यह अभी playlists, liked songs, अगला/पिछला गाना, lock-screen media controls और पूरी तरह परीक्षण किया गया release build शामिल नहीं करता।
 
 ## Build कैसे करें?
 1. Android Studio इंस्टॉल करें।
