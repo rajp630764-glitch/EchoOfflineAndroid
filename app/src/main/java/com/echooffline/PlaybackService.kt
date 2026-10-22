@@ -87,7 +87,13 @@ class PlaybackService : Service() {
             this, 1, stopIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-        return Notification.Builder(this, CHANNEL_ID)
+        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Notification.Builder(this, CHANNEL_ID)
+        } else {
+            @Suppress("DEPRECATION")
+            Notification.Builder(this)
+        }
+        return builder
             .setContentTitle(title)
             .setContentText("$artist • Echo Offline")
             .setSmallIcon(android.R.drawable.ic_media_play)
