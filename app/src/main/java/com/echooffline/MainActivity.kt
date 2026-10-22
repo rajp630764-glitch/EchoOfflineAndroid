@@ -194,18 +194,18 @@ class MainActivity : Activity() {
 
     private fun playTrack(track: AudioTrack) {
         try {
-            mediaPlayer?.release()
-            mediaPlayer = MediaPlayer().apply {
-                setDataSource(this@MainActivity, track.uri)
-                setOnCompletionListener {
-                    currentlyPlaying = null
-                    renderTracks()
-                }
-                prepare()
-                start()
+            val playbackIntent = Intent(this, PlaybackService::class.java).apply {
+                putExtra(PlaybackService.EXTRA_URI, track.uri.toString())
+                putExtra(PlaybackService.EXTRA_TITLE, track.title)
+                putExtra(PlaybackService.EXTRA_ARTIST, track.artist)
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(playbackIntent)
+            } else {
+                startService(playbackIntent)
             }
             currentlyPlaying = track.id
-            statusText.text = "अब चल रहा है: ${track.title}"
+            statusText.text = "अब चल रहा है: ${track.title} • ऐप बंद करने पर भी संगीत जारी रह सकता है"
             renderTracks()
         } catch (e: Exception) {
             Toast.makeText(this, "यह गाना नहीं चल पाया।", Toast.LENGTH_SHORT).show()
